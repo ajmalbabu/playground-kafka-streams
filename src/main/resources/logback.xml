@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <timestamp key="byDay" datePattern="yyyyMMdd'T'HHmmss"/>
+
+    <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!--<pattern>${HOSTNAME} %d{yyyy-MM-dd HH:mm:ss.SSS} %X{transactionId} %-5level [%thread] %logger{36} - %msg%n-->
+            <pattern>%d{HH:mm:ss.SSS} %logger{36}- %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ASYNC10000" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>10000</queueSize>
+        <appender-ref ref="consoleAppender"/>
+    </appender>
+
+    <root level="error">
+        <appender-ref ref="ASYNC10000"/>
+    </root>
+
+    <logger name="playground.kafka.streams" level="info"/>
+
+</configuration>
